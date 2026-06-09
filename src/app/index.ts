@@ -1,3 +1,3 @@
-const nombre = "cesar"
+const nombre = "cesar";
 
-console.log(nombre)
+console.log(nombre);

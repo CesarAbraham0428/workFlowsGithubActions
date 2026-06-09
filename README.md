@@ -49,4 +49,3 @@ Los mensajes de commit deben seguir la estructura de **Conventional Commits**:
 * `docs`: Cambios únicamente en la documentación.
 * `test`: Añadir o corregir pruebas unitarias o de integración.
 * `performance`: Cambios de código que mejoran el rendimiento.
-
