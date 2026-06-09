@@ -37,7 +37,7 @@ Para mantener un historial de Git ordenado y legible, se utiliza **Husky** junto
 Los mensajes de commit deben seguir la estructura de **Conventional Commits**:
 
 ```text
-<tipo>(<alcance>): <descripción corta en minúscula>
+<tipo>: <descripción corta en minúscula>
 ```
 
 #### Tipos permitidos (`type`):
@@ -50,22 +50,3 @@ Los mensajes de commit deben seguir la estructura de **Conventional Commits**:
 * `test`: Añadir o corregir pruebas unitarias o de integración.
 * `performance`: Cambios de código que mejoran el rendimiento.
 
-#### Alcances permitidos (`scope`):
-El alcance indica el módulo o área que se está modificando y debe colocarse entre paréntesis. Los alcances definidos en este proyecto son:
-* `frontend`
-* `auth`
-* `ui-ux`
-* `api`
-
-### Ejemplos de Commits
-
-✅ **Ejemplos Correctos:**
-* `feature(frontend): agregar pantalla de inicio de sesion`
-* `bug(api): corregir tiempo de espera al consultar endpoints`
-* `chore(ui-ux): actualizar colores institucionales del boton principal`
-* `docs(frontend): corregir documentacion del flujo de checkout`
-
-❌ **Ejemplos Incorrectos (Serán rechazados por Git):**
-* `test: corregir pruebas` *(Falta el alcance entre paréntesis)*
-* `feature(frontend) agregar boton` *(Falta el `:` después de los paréntesis)*
-* `arreglado el error del boton` *(No tiene tipo ni alcance, formato libre)*
