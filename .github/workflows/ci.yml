@@ -26,7 +26,7 @@ jobs:
           cache: npm
 
       - name: Mostrar mensaje
-        run: echo "Mensaje: Hola, Mi nombre es César Abraham López Aguilar"
+        run: echo "Mensaje - Hola, Mi nombre es César Abraham López Aguilar"
 
       - name: Instalar dependencias
         run: npm ci
