@@ -1,27 +1,71 @@
-# CalaApp
+# Cala App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Este proyecto está construido con Angular y cuenta con herramientas automatizadas para el control de calidad del código y la estandarización de los mensajes de confirmación de cambios (commits).
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Herramientas de Calidad de Código
 
-## Code scaffolding
+### ESLint
+Utilizamos ESLint para analizar y mantener el estilo de programación limpio y consistente en todo el proyecto (archivos `.ts` y `.html`).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Comandos Disponibles:
+* **Analizar código**:
+  ```bash
+  npm run lint
+  ```
+  O alternativamente usando `npx`:
+  ```bash
+  npx eslint .
+  ```
+* **Corregir automáticamente errores solucionables**:
+  ```bash
+  npm run lint:fix
+  ```
+  O alternativamente usando `npx`:
+  ```bash
+  npx eslint . --fix
+  ```
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Reglas y Validación de Commits
 
-## Running unit tests
+Para mantener un historial de Git ordenado y legible, se utiliza **Husky** junto con **Commitlint**. Esto intercepta tus confirmaciones de cambios e impide realizar commits con mensajes que no cumplan con el estándar.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Formato Obligatorio del Mensaje de Commit:
+Los mensajes de commit deben seguir la estructura de **Conventional Commits**:
 
-## Running end-to-end tests
+```text
+<tipo>(<alcance>): <descripción corta en minúscula>
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+#### Tipos permitidos (`type`):
+* `feature`: Una nueva funcionalidad.
+* `bug`: Corrección de un error o bug en producción o desarrollo.
+* `hotfix`: Solución rápida de emergencia para errores críticos.
+* `refactor`: Cambios de código que no corrigen un error ni añaden una funcionalidad (reorganización, optimización).
+* `chore`: Tareas de mantenimiento, actualización de dependencias, configuración de herramientas, etc.
+* `docs`: Cambios únicamente en la documentación.
+* `test`: Añadir o corregir pruebas unitarias o de integración.
+* `performance`: Cambios de código que mejoran el rendimiento.
 
-## Further help
+#### Alcances permitidos (`scope`):
+El alcance indica el módulo o área que se está modificando y debe colocarse entre paréntesis. Los alcances definidos en este proyecto son:
+* `frontend`
+* `auth`
+* `ui-ux`
+* `api`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Ejemplos de Commits
+
+✅ **Ejemplos Correctos:**
+* `feature(frontend): agregar pantalla de inicio de sesion`
+* `bug(api): corregir tiempo de espera al consultar endpoints`
+* `chore(ui-ux): actualizar colores institucionales del boton principal`
+* `docs(frontend): corregir documentacion del flujo de checkout`
+
+❌ **Ejemplos Incorrectos (Serán rechazados por Git):**
+* `test: corregir pruebas` *(Falta el alcance entre paréntesis)*
+* `feature(frontend) agregar boton` *(Falta el `:` después de los paréntesis)*
+* `arreglado el error del boton` *(No tiene tipo ni alcance, formato libre)*
