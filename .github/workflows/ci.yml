@@ -26,10 +26,10 @@ jobs:
           cache: npm
 
       - name: Mostrar mensaje
-        run: echo "Mensaje: Hola, Mi nombre es César Abraham López Aguilar"
+        run: echo "Mensaje - Hola, Mi nombre es César Abraham López Aguilar"
 
       - name: Instalar dependencias
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Ejecutar ESLint
         run: npm run lint
@@ -61,7 +61,7 @@ jobs:
           cache: npm
 
       - name: Instalar dependencias
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Crear environment.prod.ts
         run: |

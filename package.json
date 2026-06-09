@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky"
+    "prepare": "node -e \"if (process.env.CI !== '1') { require('child_process').execSync('husky') }\""
   },
   "private": true,
   "dependencies": {
