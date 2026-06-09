@@ -1,0 +1,85 @@
+name: CI_Frontend
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  validate:
+    name: Validar Proyecto
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Mostrar mensaje
+        run: echo "Mensaje: Hola, Mi nombre es César Abraham López Aguilar"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar ESLint
+        run: npm run lint
+
+      - name: Ejecutar pruebas unitarias
+        run: npm test
+
+      - name: Generar Build
+        run: npm run build
+
+  deploy:
+    name: Desplegar en Vercel
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Crear environment.prod.ts
+        run: |
+          cat > src/environments/environment.prod.ts << EOF
+          export const environment = {
+            production: true,
+            apiUrl: '${{ secrets.API_URL }}'
+          };
+          EOF
+
+      - name: Instalar CLI de Vercel
+        run: npm install --global vercel
+
+      - name: Obtener configuración de Vercel
+        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+
+      - name: Compilar aplicación para producción
+        run: vercel build --prod --token=$VERCEL_TOKEN
+
+      - name: Desplegar en Vercel
+        run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
