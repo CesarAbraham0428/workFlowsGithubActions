@@ -8,6 +8,7 @@ module.exports = {
       [
         'feature',
         'bug',
+        'fix',
         'hotfix',
         'refactor',
         'chore',
